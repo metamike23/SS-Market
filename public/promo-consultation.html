@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free IT Consultation - Scalable Solutions</title>
+    <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="/css/stylesheet.css" type="text/css" rel="stylesheet">
+    <style>
+        /* Additional CSS styles can be added here */
+        .main-section {
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .unsubscribe-form {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div class="container mb-3 unsubscribe-form main-section">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="outreach-form main-section">
+                        <h3>Free IT Consultation</h3>
+                        <p>
+                            Our Free IT Consultation service is designed to help you navigate through technical challenges with ease. Whether you need assistance with setting up your home network, troubleshooting computer issues, or optimizing your office setup, our experts are here to provide personalized solutions tailored to your needs.
+                        </p>
+                        <p>
+                            Service	Duration	Included
+                            <ul>
+                                <li>Network/System Setup	20 minutes</li>
+                                <li>Network/System Maintenance	20 minutes</li>
+                                <li>Network/Data Security	20 minutes</li>
+                                <li>Business Software Solutions	20 minutes</li>
+                            </ul>
+                        </p>
+
+                        <p>
+                            <strong>Instructions:</strong>
+                            <ol>
+                                <li>Submit the IT Consultation form below about whatever topic you want assistance with.</li>
+                                <li>Check your inbox for a verification email. If you do not see it, please check your spam folder.</li>
+                                <li>Shortly after, you will receive a second email with a link to book a time for your consultation.</li>
+                            </ol>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div id="consultation-form-wrapper">
+                        <form id="consultationForm" action="/book-consultation" method="POST">
+                            
+
+
+                            <div class="form-group mb-3">
+                                <label for="name">Your Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" class="form-control" id="phone" name="phone" required>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="serviceNeeded">Service Needed</label>
+                                <select class="form-control" id="serviceNeeded" name="service_needed" required>
+                                    <option value="">Select Service</option>
+                                    <option value="Network/System Setup">Network/System Setup</option>
+                                    <option value="Network/System Maintenance">Network/System Maintenance</option>
+                                    <option value="Network/Data Security">Network/Data Security</option>
+                                    <option value="Business Software Solutions">Business Software Solutions</option>
+                                    <option value="Advanced Security Analysis">Advanced Security Analysis</option>
+                                    <option value="Custom Software Solutions">Custom Software Solutions</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="consultationType">Consultation Type</label>
+                                <select class="form-control" id="consultationType" name="consultation_type" required>
+                                    <option value="">Select Consultation Type</option>
+                                    <option value="Phone Call">Phone Call</option>
+                                    <option value="Zoom">Zoom</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="additionalInfo">Additional Information (Optional)</label>
+                                <textarea class="form-control" id="additionalInfo" name="additional_info" rows="3"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
+                            <p id="verificationText" class="text-muted mt-2"></p>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <script>
+        // client-side-js-file.js
+
+document.getElementById('consultationForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    // Capture form values
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var phone = document.getElementById('phone').value;
+    var serviceNeeded = document.getElementById('serviceNeeded').value;
+    var consultationType = document.getElementById('consultationType').value;
+    var additionalInfo = document.getElementById('additionalInfo').value;
+
+    // Construct JSON object
+    var formData = {
+        name: name,
+        email: email,
+        phone: phone,
+        service_needed: serviceNeeded,
+        consultation_type: consultationType,
+        additional_info: additionalInfo
+    };
+
+    // Convert to JSON string
+    var jsonData = JSON.stringify(formData);
+
+    // Send data using fetch
+    try {
+        var response = await fetch('/book-consultation', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: jsonData
+        });
+
+        if (response.ok) {
+            var data = await response.json();
+            console.log('Form data sent successfully:', data);
+            document.getElementById('verificationText').innerText = 'Verification email sent successfully. Please check your inbox.';
+            document.getElementById('submitBtn').textContent = 'Resend';
+        } else {
+            console.error('Failed to send form data:', response.statusText);
+            document.getElementById('verificationText').innerText = 'Failed to send verification email. Please try again later or contact support.';
+        }
+    } catch (error) {
+        console.error('Error sending form data:', error);
+        document.getElementById('verificationText').innerText = 'Failed to send verification email. Please try again later or contact support.';
+    }
+});
+
+    </script>
+    
+   
+</body>
+</html>

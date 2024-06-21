@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unsubscribe</title>
+    <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="/css/stylesheet.css" type="text/css" rel="stylesheet">
+
+  </head>
+  <body>
+
+    
+
+   <section>
+    <div class="container mb-3 unsubscribe-form main-section">
+        <div class="row">
+            <h2 class="text-center">You have been removed from Scalable Solutions mailing list</h2>
+        </div>
+        <div class="row">
+
+
+
+            <div class="col-md-6">
+                <div class="outreach-form main-section">
+                    <h3>Our Outreach team values your opinion!</h3>
+                    <p> 
+                      At Scalable Solutions, we are committed to helping our fellow Californians save time and money while providing first-class customer service. 
+                      Your feedback is invaluable to us, and we'd love to hear your thoughts on how we can enhance our outreach strategy.
+                    </p>
+                    <p>
+                      We respect your privacy and only seek your ideas on improving the customer experience through our email outreach. 
+                      Your insights will help us convey our dedication to the community more effectively.
+                    </p>
+                    <p>
+                      Please take a moment to fill out this form. Your input will directly influence how we serve and support our community better.
+                    </p>
+                  </div>
+            </div>
+
+            <div class="col-md-6" >
+                <div id="feedback-form-wrapper">
+                    <form action="/handle-unsubscribe-survey" method="POST">
+                        <input type="hidden" id="emailInput" name="email">
+            
+                        <div class="form-group mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" id="floatingSelect-1" name="unsubscribe_reason" aria-label="Floating label select example">
+                                    <option selected></option>
+                                    <option value="never_signed_up">I never signed up to receive emails</option>
+                                    <option value="too_frequent">The emails are too frequent</option>
+                                    <option value="irrelevant_content">The content is irrelevant to me</option>
+                                    <option value="not_interested">I am not interested in these products/services</option>
+                                    <option value="prefer_text">I would prefer text notifications</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <label for="floatingSelect-2">Please let us know your reason for unsubscribing</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="input-two">Would you like to provide a description?</label>
+                            <textarea class="form-control" id="input-two" name="description" rows="3"></textarea>
+                        </div>
+
+
+                        <div class="form-group mb-3">
+                            <div class="form-floating">
+                                <select class="form-select" id="floatingSelect" name="service_acquisition" aria-label="Floating label select example">
+                                    <option selected></option>
+                                    <option value="family_friend">Referral from family/friend</option>
+                                    <option value="internet_search">Internet search</option>
+                                    <option value="have_technician">Already have a technician</option>
+                                    <option value="job_finder">Use a job finder app/service</option>
+                                    <option value="unsure">Unsure</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <label for="floatingSelect">How would you typically find IT support?</label>
+                            </div>
+                        </div>
+            
+                        
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section> 
+
+
+<script>
+    function base64Decode(str) {
+        return decodeURIComponent(atob(str).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedQuery = urlParams.get('q');
+
+    if (encodedQuery) {
+        const decodedQuery = base64Decode(encodedQuery);
+        const params = new URLSearchParams(decodedQuery);
+        const email = params.get('email');
+        if (email) {
+            document.getElementById('emailInput').value = email;
+        }
+    }
+</script>
+
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+</body>
+  
+</html>

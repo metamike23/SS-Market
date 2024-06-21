@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unsubscribe</title>
+    <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="/css/stylesheet.css" type="text/css" rel="stylesheet">
+
+  </head>
+  <body>
+
+    
+
+    <div class="container mt-3 mb-3 unsubscribe-form main-section">
+        <div class="row">
+            <div class="col-md-6">
+                <img
+                src="/images/unsubscribe-image.jpeg"
+                alt="Company Logo"
+                />
+            </div>
+            <div class="col-md-6">
+                <h4 class="mb-4">It's sad to see you leave so soon!</h4>
+                <div class="form">
+                  <form action="/unsubscribe" method="POST">
+                  <h5 class="mb-2 mt-3">Would it be helpful if we changed your frequency instead?</h5>
+                  <p>
+                      <input type="checkbox" id="seasonalOffers" name="optSeasonalOffers">
+                      <label for="seasonalOffers">I would like to receive seasonal or promotional offers only</label><br>
+          
+                      <input type="checkbox" id="twiceMonth" name="optTwiceMonth">
+                      <label for="twiceMonth">I would like to receive emails twice a month</label><br>
+          
+                      <input type="checkbox" id="onceMonth" name="optOnceMonth">
+                      <label for="onceMonth">I would like to receive emails once a month</label><br>
+                  </p>
+                  <p>
+                      <input type="checkbox" id="unsubscribeAll" name="unsubscribeAll">
+                      <label for="unsubscribeAll">No thanks, I would like to unsubscribe to all emails</label>
+                  </p>
+                  <p>
+                      <input type="email" class="form__email" name="email" placeholder="Enter your email address" required>
+                  </p>
+                  
+                  <button id="unsubscribe_button" type="submit">Submit</button>
+                </form>
+              </div>
+           
+            </div>
+            
+
+        </div>
+    </div>
+
+
+
+
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const anonymousRadio = document.getElementById('feedback-send-anonamous-radio');
+            const emailRadio = document.getElementById('feedback-send-email-radio');
+            const emailInput = document.getElementById('send-with-email');
+    
+            // Function to toggle the disabled state of the email input
+            const toggleEmailInput = () => {
+                if (emailRadio.checked) {
+                    emailInput.disabled = false;
+                } else {
+                    emailInput.disabled = true;
+                }
+            };
+    
+            // Add event listeners to radio buttons
+            anonymousRadio.addEventListener('change', toggleEmailInput);
+            emailRadio.addEventListener('change', toggleEmailInput);
+    
+            // Initial check
+            toggleEmailInput();
+        });
+    </script>
+
+
+
+
+
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+  </body>
+  
+</html>

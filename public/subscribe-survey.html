@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unsubscribe</title>
+    <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="/css/stylesheet.css" type="text/css" rel="stylesheet">
+
+  </head>
+  <body>
+
+    
+
+   <section>
+    <div class="container mb-3 unsubscribe-form main-section">
+        <div class="row">
+
+
+
+            <div class="col-md-6">
+                <div class="outreach-form main-section">
+                    <h3>Our Outreach team values your opinion!</h3>
+                    <p> 
+                      At Scalable Solutions, we are committed to helping our fellow Californians save time and money while providing first-class customer service. 
+                      Your feedback is invaluable to us, and we'd love to hear your thoughts on how we can enhance our outreach strategy.
+                    </p>
+                    <p>
+                      We respect your privacy and only seek your ideas on improving the customer experience through our email outreach. 
+                      Your insights will help us convey our dedication to the community more effectively.
+                    </p>
+                    <p>
+                      Please take a moment to fill out this form. Your input will directly influence how we serve and support our community better.
+                    </p>
+                  </div>
+            </div>
+
+            <div class="col-md-6">
+                <div id="subscriber-info-form-wrapper">
+                    <form action="/handle-subscriber-survey" method="POST">
+                        <input type="hidden" id="emailInput" name="email"> <!-- Hidden input for email -->
+
+                        <div class="form-group mb-3">
+                            <label for="computerExperience">How would you rate your experience with computers?</label>
+                            <select class="form-control" id="computerExperience" name="computer_experience">
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="personalNetwork">Do you have experience setting up personal networks?</label>
+                            <select class="form-control" id="personalNetwork" name="personal_network_experience">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="interestAI">Are you interested in Artificial Intelligence (AI)?</label>
+                            <select class="form-control" id="interestAI" name="interest_ai">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="interestBlockchain">Are you interested in Blockchain technology?</label>
+                            <select class="form-control" id="interestBlockchain" name="interest_blockchain">
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="biggestITNeed">What is your biggest IT need right now?</label>
+                            <textarea class="form-control" id="biggestITNeed" name="biggest_it_need" rows="3"></textarea>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="lastITSupport">Who was your last company or IT support provider?</label>
+                            <input type="text" class="form-control" id="lastITSupport" name="last_it_support">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-outline-primary" id="maybeLaterButton">Maybe Later &#10148;</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section> 
+
+
+<script>
+    function base64Decode(str) {
+        return decodeURIComponent(atob(str).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedQuery = urlParams.get('q');
+
+    if (encodedQuery) {
+        const decodedQuery = base64Decode(encodedQuery);
+        const params = new URLSearchParams(decodedQuery);
+        const email = params.get('email');
+        if (email) {
+            document.getElementById('emailInput').value = email;
+        }
+    }
+
+
+
+    
+
+    // Script to handle "Maybe Later" button click
+    document.getElementById('maybeLaterButton').addEventListener('click', function() {
+            window.location.href = '/outreach/promotions';
+        });
+
+        // Optional: Flash thank you message before redirect (simulated with setTimeout)
+        document.getElementById('subscriber-info-form-wrapper').addEventListener('submit', function() {
+            // Simulate thank you animation (you can customize this further)
+            alert('Thank you for your submission!');
+            setTimeout(function() {
+                window.location.href = '/outreach/promotions';
+            }, 1000); // 1 second delay
+        });
+</script>
+
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+</body>
+  
+</html>

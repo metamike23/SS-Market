@@ -1,0 +1,186 @@
+/* Brutally Black */
+
+
+.main-section {
+    font-family: "SF Pro Text", sans-serif;
+    color: #ccc;
+    background-color: #111;
+    padding: 1.4rem;
+    border-radius: 4px;
+    max-width: px;
+    flex-shrink: 0;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-section {
+    font-family: "SF Pro Text", sans-serif;
+    color: #ccc;
+    background-color: #111;
+    padding: 0.8rem;
+    max-width: px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    font-size: 1rem; /* h2 size */
+    font-family: inherit; /* Keep the font family consistent */
+    font-weight: bold; /* Optional, if you want the text to be bold */
+    color: white;
+}
+
+
+
+.main-section img {
+    max-width: 100%;
+    max-height: 400px;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin: 0;
+    color: #fff;
+  }
+
+  p {
+    margin: 24px 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #ccc;
+  }
+
+  input {
+    font-size: small;
+    border: 2px solid rgba(0, 0, 0, 0.6);
+    background-color: #dadad3;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    padding: 12px;
+
+    }
+
+    .main-section button {
+    display: flex;
+    padding: 12px 20px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    background: #222;
+    color: #fff;
+    border-radius: 4px;
+    border: 2px solid #222;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background 0.2s, color 0.3s, border-color 0.2s;
+    outline: none;
+  }
+
+  .outreach-form button {
+    padding: 10px 15px;
+    gap: 10px;
+    border-radius: 3px;
+    border: 2px solid #222;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+  }
+
+  .feedback-form-footer button {
+    padding: 10px 15px;
+    gap: 10px;
+    border-radius: 3px;
+    border: 1px solid #222;
+    font-size: 10px;
+  }
+
+
+  .main-section button:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+  }
+
+  .main-section button:focus {
+    color: #fff;
+    border-color: #444;
+  }
+
+  .main-section button:active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+    box-shadow: none;
+  }
+
+  #email {
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+
+
+
+
+
+
+
+
+
+  #feedback-form-wrapper .rating-input-wrapper input[type="radio"] {
+    display: none;
+  }
+  #feedback-form-wrapper .rating-input-wrapper input[type="radio"] ~ span {
+    cursor: pointer;
+  }
+  #feedback-form-wrapper .rating-input-wrapper input[type="radio"]:checked ~ span {
+    background-color: #4261dc;
+    color: #fff;
+  }
+  #feedback-form-wrapper .rating-labels > label{
+    font-size: 14px;
+      color: #777;
+  }
+
+
+
+  /* Custom CSS to style the SVG icon */
+  .info-icon {
+    fill: lightblue; /* Change fill color to light blue */
+}
+
+
+/* Custom CSS for list items */
+.styled-list .list-group-item {
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+    border-color: #b3e0ff; /* Baby blue border color */
+    font-size: 0.7rem; /* Smaller font size */
+}
+
+.styled-list .list-group-item strong {
+    color: #b3e0ff; /* Baby blue text color for strong tags */
+}
+
+
+.light-blue-header {
+    color: #b3e0ff; /* Light blue text color */
+    font-size: 1rem; /* Font size */
+
+}
+
+.light-blue-header-nav {
+    color: #b3e0ff; /* Light blue text color */
+    font-size: 1.1rem; /* Font size */
+
+}
+
+.small-text {
+    font-size: 0.8rem; /* Smaller font size */
+    color: #b3e0ff; /* Grey color */
+}
