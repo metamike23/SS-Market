@@ -5,7 +5,7 @@ require('dotenv').config();
 class Mail {
 
 
-    static async sendVerificationEmail(to, subject, name) {
+    static async sendVerificationEmail(to, subject, name, service, type, duration) {
         const transporter = nodemailer.createTransport({
             host: process.env.SMTP_SERVER,
             port: process.env.SMTP_PORT,
@@ -20,7 +20,7 @@ class Mail {
             from: process.env.EMAIL_USER,
             to: to,
             subject: subject,
-            html: Mail.generateVerificationEmailBody(name) // Call the HTML generator function here
+            html: Mail.generateVerificationEmailBody(name, service, type, duration) // Call the HTML generator function here
         };
 
         try {
@@ -32,7 +32,7 @@ class Mail {
     }
 
 
-    static generateVerificationEmailBody(name) {
+    static generateVerificationEmailBody(name, service, type, duration) {
         return `
             <html>
             <head>
@@ -76,6 +76,11 @@ class Mail {
                     <div class="content">
                         <p>Hello ${name},</p>
                         <p>Thank you for choosing our IT Consultation service. Please click the link below to schedule your remote consultation:</p>
+
+                        <p>Service: ${service}</p>
+                        <p>Consultation Type: ${type}</p>
+                        <p>Duration: ${duration}</p>
+
                         <p><a href="https://example.com/verify">Schedule Consultation</a></p>
                         <p>If you have any questions or need further assistance, please feel free to contact us.</p>
                     </div>
@@ -95,6 +100,3 @@ class Mail {
 
 
 module.exports = Mail;
-
-
-
