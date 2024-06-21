@@ -190,11 +190,14 @@ app.post('/handle-unsubscribe-survey', (req, res) => {
 });
 
 
-// POST request handling for form submission
+// POST request handling for consultation form submission
 app.post('/book-consultation', async (req, res) => {
     const email = req.body.email;
     const name = req.body.name;
     const service_needed = req.body.service_needed
+    const phone = req.body.phone
+    const consultation_type = req.body.consultation_type
+    const duration = '20 Minutes'
 
     // Simulate failure if email is restricted
     if (email === 'banned@gmail.com') {
@@ -203,7 +206,7 @@ app.post('/book-consultation', async (req, res) => {
 
     try {
         // Assuming Mail.sendVerificationEmail is an async function
-        await Mail.sendVerificationEmail(email, service_needed + ' Consultation Verified', name);
+        await Mail.sendVerificationEmail(email, 'Consultation Verified', name, service_needed, consultation_type, duration);
 
         res.status(200).json({ message: 'Verification email sent successfully.' });
     } catch (error) {
