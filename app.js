@@ -5,7 +5,7 @@ const querystring = require('querystring');
 
 
 const Mail = require('./mail');
-
+const { Database } = require('./db');  
 
 const app = express();
 const port = 3000;
@@ -79,6 +79,8 @@ app.get('/unsubscribe-survey', (req, res) => {
     });
 });
 
+
+
 // Route to render the subscribe-survey page
 app.get('/subscribe-survey', (req, res) => {
     const encodedQuery = req.query.q;
@@ -92,6 +94,9 @@ app.get('/subscribe-survey', (req, res) => {
         }
     });
 });
+
+
+
 
 
 
@@ -112,8 +117,21 @@ app.post('/subscribe', (req, res) => {
     res.redirect(`/subscribe-survey?q=${encodeURIComponent(encodedQuery)}`);
 });
 
-// Route to handle the subscriber information form submission
-app.post('/handle-subscriber-survey', (req, res) => {
+
+
+
+
+/*
+    Route to handle the subscriber information form submission
+    - 1) Get form data
+    - 2) Get user email from email_list table
+    - 3) Add survey info to subscribe_survey table
+    - 4) Route user to promotions page
+
+    *
+*/
+app.post('/handle-subscriber-survey', async (req, res) => {
+    // get from values for request body
     const email = req.body.email;
     const computerExperience = req.body.computer_experience;
     const personalNetworkExperience = req.body.personal_network_experience;
@@ -122,19 +140,41 @@ app.post('/handle-subscriber-survey', (req, res) => {
     const biggestITNeed = req.body.biggest_it_need;
     const lastITSupport = req.body.last_it_support;
 
-    // Log form data (you can also save it to a database)
-    console.log('Subscriber Information Form Data:');
-    console.log('Email:', email);
-    console.log('Computer Experience:', computerExperience);
-    console.log('Personal Network Experience:', personalNetworkExperience);
-    console.log('Interest in AI:', interestAI);
-    console.log('Interest in Blockchain:', interestBlockchain);
-    console.log('Biggest IT Need:', biggestITNeed);
-    console.log('Last IT Support Provider:', lastITSupport);
+    // send survey info to database
+    try {
+        // Use method to get the email ID
+        const emailResult = await Database.getEmailIdByEmail(email);
+        if (emailResult.length === 0) {
+            return res.status(400).json({ error: 'Email not found in email_list' });
+        }
 
-    // Redirect to thank you page after submission
-    res.redirect('/outreach/promotions');
+        const emailId = emailResult[0].id;
+
+        // Add survey result
+        const surveyResult = await Database.addSurveyResult(
+            emailId,
+            computerExperience,
+            personalNetworkExperience,
+            interestAI,
+            interestBlockchain,
+            biggestITNeed,
+            lastITSupport
+        );
+
+        console.log('Added survey result:', surveyResult);
+
+        // Redirect to thank you page after submission
+        res.redirect('/outreach/promotions');
+    } catch (error) {
+        console.error('Database operation error:', error);
+        res.status(500).json({ error: 'Failed to add survey result' });
+    }
 });
+
+
+
+
+
 
 
 
@@ -166,31 +206,62 @@ app.post('/unsubscribe', (req, res) => {
 
 
 
-// Route to handle the survey form submission
-app.post('/handle-unsubscribe-survey', (req, res) => {
 
-    /*
+/*
+    Route to handle the unsubscriber information form submission
+    - 1) Get form data
+    - 2) Get user email from email_list table
+    - 3) Add survey info to unsubscribe_survey table
+    - 4) Route user to thank-you page
 
-    Need to upload to database
+    *
+*/
+app.post('/handle-unsubscribe-survey', async (req, res) => {
+    const email = req.body.email;
+    const unsubscribeReason = req.body.unsubscribe_reason;
+    const description = req.body.description;
+    const serviceAcquisition = req.body.service_acquisition;
 
 
+    try {
+        // Use the new static method to get the email ID
+        const emailResult = await Database.getEmailIdByEmail(email);
+        if (emailResult.length === 0) {
+            return res.status(400).json({ error: 'Email not found in email_list' });
+        }
 
-    console.log('Survey Form Data:');
-    console.log('Email:', req.body.email);
-    console.log('Rating:', req.body.rating);
-    console.log('Service Acquisition:', req.body.service_acquisition);
-    console.log('Unsubscribe Reason:', req.body.unsubscribe_reason);
-    console.log('Description:', req.body.description);
+        const emailId = emailResult[0].id;
 
-    */
+        // Add unsubscribe survey result
+        const surveyResult = await Database.addUnsubscribeSurveyResult(
+            emailId,
+            unsubscribeReason,
+            description,
+            serviceAcquisition
+        );
 
-    
+        console.log('Added unsubscribe survey result:', surveyResult);
 
-    res.redirect('/thank-you');
+        // Redirect to thank you page after submission
+        res.redirect('/thank-you');
+    } catch (error) {
+        console.error('Database operation error:', error);
+        res.status(500).json({ error: 'Failed to add unsubscribe survey result' });
+    }
 });
 
 
-// POST request handling for consultation form submission
+
+
+
+/*
+    POST request handling for consultation form submission
+    - 1) Get form data
+    - 2) Get user email from email_list table
+    ....
+
+    *
+*/
 app.post('/book-consultation', async (req, res) => {
     const email = req.body.email;
     const name = req.body.name;
@@ -213,6 +284,15 @@ app.post('/book-consultation', async (req, res) => {
         console.error('Error sending verification email:', error);
         res.status(500).json({ error: 'Failed to send verification email.' });
     }
+});
+
+
+
+
+
+
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}/`);
 });
 
 
