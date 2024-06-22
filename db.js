@@ -1,14 +1,14 @@
 // db.js
 
-const mysql = require('mysql2/promise');  // Require mysql2/promise for promises-based API
+const mysql = require('mysql2/promise');  
 require('dotenv').config();
 
 // Create a pool of connections
 const pool = mysql.createPool({
-    host: process.env.DB_HOST,  // Replace with your MySQL host
-    user: process.env.DB_USER,  // Replace with your MySQL username
-    password: process.env.DB_PASS,  // Replace with your MySQL password
-    database: process.env.DB_NAME,  // Replace with your MySQL database name
+    host: process.env.DB_HOST,  
+    user: process.env.DB_USER,  
+    password: process.env.DB_PASS,  
+    database: process.env.DB_NAME,  
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
